@@ -6,8 +6,49 @@
     <canvas id="can"></canvas>
 
     <script>
+
+      const SCREEN_W = 800;
+      const SCREEN_H = 500;
+
+      // id=can要素をとってくる
       let elm = document.getElementById("can");
-      let 
+      // 要素の中に各部分
+      let con = elm.getContext("2d");
+
+      let x = 100;
+      let y = 200;
+      let sx = 30;
+      let sy = 20;
+      let vx = 8;
+      let vy = 5;
+
+      elm.width = SCREEN_W;
+      elm.height = SCREEN_H;
+      elm.style.backgroundColor = "skyblue";
+
+      // main機能（function)を1000/60秒で繰り返す↓
+      setInterval( main, 1000/60 );
+  
+      function main() {
+
+        // 一度画面を全て消す
+        con.clearRect(0, 0, SCREEN_W, SCREEN_H);
+
+        // xがvかけた位置に移動する
+        x += vx;
+        y += vy;
+
+        // 画面の端まで来たら反転する
+        if(x <= 0 || x + sx >= SCREEN_W) vx *= -1;
+        if(y <= 0 || y + sy >= SCREEN_H) vy *= -1;
+
+
+        con.fillStyle = "yellow";
+
+        // fillReact = canvas に四角を書く際に使う
+        con.fillRect( x, y, sx, sy );
+      }
+
     </script>
   </body>
 </html>
