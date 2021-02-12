@@ -19,12 +19,22 @@ let array = ['いち', 'に', 'san','yon'];
 //   console.log('kakikukeko');
 // }
 
-const test = () => {
-  if (array.length > 5) {
+const test = (arg) => {
+  if (array.length > arg) {
     console.log('aiueo');
   } else {
     console.log('kakikukeko');
   }
 };
 
-test();
+const gree2 = {
+  color: 'pink',
+  size: 'large',
+  purfume: 'mint',
+  goToilet: () => {
+    console.log("hello world!");
+  }
+};
+
+
+
