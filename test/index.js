@@ -38,3 +38,6 @@ const gree2 = {
 
 
 
+document.getElementsByTagName('button')[0].addEventListener('click', () => {
+  window.alert('hello');
+});
