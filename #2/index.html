@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <canvas id="can"></canvas>
+    <script>
+
+      const SCREEN_W = 800;
+      const SCREEN_H = 500;
+      const BLOCK_ROW = 4;
+      const BLOCK_COL = 10;
+
+      let elm = document.getElementById("can");
+      let con = elm.getContext("2d");
+      let x = 10;
+      let y = 20;
+      let sx = 50;
+      let sy = 40;
+
+      elm.width = SCREEN_W;
+      elm.height = SCREEN_H;
+      elm.style.backgroundColor = "orange";
+
+
+      let colors = [
+        "blue",
+        "yellow",
+        "pink",
+        "green",
+        "skyblue"];
+
+      for (let j = 0; j < BLOCK_ROW; j++) {
+
+
+        for (let i = 0; i < BLOCK_COL; i++) {
+          let px = x + i * (sx + 4);
+          let py = y + i + j * (sy + 4);
+          con.fillStyle = colors[i % colors.length];
+
+          con.fillRect(px, py, sx, sy);
+        }
+
+      }
+
+
+
+
+
+    </script>
+  </body>
+</html>
