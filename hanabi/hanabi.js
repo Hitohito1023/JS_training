@@ -9,8 +9,27 @@ let con = can.getContext("2d");
 can.width = SCREEN_W;
 can.height = SCREEN_H;
 
+class Zanzo {
+  constructor(x, y){
+    this.x = x;
+    this.y = y;
+    this.c = 10;
+  }
+  update(){
+    if(this.kill)return;
+    if( --this.c == 0)this.kill = true;
+  }
+  draw(){
+    if(this.kill)return;
+
+    con.globalAlpha = 1.0 * this.c/10;
+    con.fillStyle = "#ffee88";
+    con.fillRect(this.x>>8, this.y>>8, 2, 2);
+  }
+}
+
 class Hanabi {
-  constructor(x, y, vx, vy, gv){
+  constructor(x, y, vx, vy, gv, hp){
     this.x = x<<8;
     this.y = y<<8;
     this.vx = vx;
@@ -18,6 +37,12 @@ class Hanabi {
     this.gv = gv;
     this.kill = false;
     this.type = 0;
+    if(hp == undefined){
+      this.hp=200;
+    }else{
+      this.hp = hp;
+      this.type = 1;
+    }
   }
 
   update(){
@@ -31,24 +56,27 @@ class Hanabi {
       if(this.vy > 0){
         this.kill = true;
 
-        for(let i = 0; i<100; i++){
+        for(let i = 0; i<1000; i++){
           let r = rand(0, 360);
           let s = rand(10, 400);
           let vx = Math.cos(r * Math.PI/180)*s;
-          let vy = Math.cos(r * Math.PI/180)*s;
+          let vy = Math.sin(r * Math.PI/180)*s;
 
           hanabi.push(
-            new Hanabi(this.x >> 8, this.y >> 8, vx, vy, 1)
+            new Hanabi(this.x >> 8, this.y >> 8, vx, vy, 1, 200)
           );
-      
+
 
         }
       }
+    }else{
+      if( --this.hp==0)this.kill = true;
     }
   }
 
   draw(){
     if(this.kill)return;
+    con.globalAlpha = 1.0;
     con.fillStyle = "#ffee88";
     con.fillRect(this.x>>8, this.y>>8, 2, 2);
   }
