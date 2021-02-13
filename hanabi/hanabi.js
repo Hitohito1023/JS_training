@@ -16,6 +16,8 @@ class Hanabi {
     this.vx = vx;
     this.vy = vy;
     this.gv = gv;
+    this.kill = false;
+    this.type = 0;
   }
 
   update(){
@@ -24,7 +26,12 @@ class Hanabi {
     this.y += this.vy;
     this.vy += this.gv;
 
-    if(this.y>>8 > SCREEN_H)this.kill = true;
+    if(this.y>>8 > SCREEN_H) this.kill = true;
+    if(this.type == 0){
+      if(this.vy > 0){
+        this.kill = true;
+      }
+    }
   }
 
   draw(){
@@ -57,17 +64,17 @@ function update() {
 
 //描画
 function draw() {
-  con.fillStyle= "#2222222";
+  con.fillStyle= "#222222";
   con.fillRect(0, 0, SCREEN_W, SCREEN_H);
   for(let i = hanabi.length-1; i>=0; i--){
     hanabi[i].draw();
   }
 }
 
-document.onkeydown = function(e){
+document.onkeydown = function(e) {
   if(e.keyCode==32){
     hanabi.push(
-      new Hanabi(SCREEN_W/2, SCREEN_H, 0, -600, 1)
+      new Hanabi(SCREEN_W/2, SCREEN_H, 0, -800, 4)
     );
   }
 }
