@@ -30,6 +30,19 @@ class Hanabi {
     if(this.type == 0){
       if(this.vy > 0){
         this.kill = true;
+
+        for(let i = 0; i<100; i++){
+          let r = rand(0, 360);
+          let s = rand(10, 400);
+          let vx = Math.cos(r * Math.PI/180)*s;
+          let vy = Math.cos(r * Math.PI/180)*s;
+
+          hanabi.push(
+            new Hanabi(this.x >> 8, this.y >> 8, vx, vy, 1)
+          );
+      
+
+        }
       }
     }
   }
@@ -45,7 +58,11 @@ let hanabi = [];
 
 setInterval(mailLoop, 1000/60);
 
-
+function rand(min, max){
+  return Math.floor(
+    (Math.random() * (max - min + 1)) + min
+  );
+}
 
 //メインループ
 function mailLoop() {
