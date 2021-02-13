@@ -5,6 +5,8 @@
   const $tab = $doc.getElementById('js-tab');
   const $nav = $tab.querySelectorAll('[data-nav');
   const $content = $tab.querySelectorAll('[data-content]');
+  const ACTIVE_CLASS = 'is-active';
+  const NAV_LENGTH = $nav.length;
 
   const init = () => {
     $content[0].style.display = 'block';
@@ -14,8 +16,26 @@
   //クリックイベント
   const handleClick = (e) => {
     e.preventDefault();
-    console.log('clicked!');
+
+    const $this = e.target;
+    const targetVal = $this.dataset.nav;
+
+    let index = 0;
+    while(index < NAV_LENGTH){
+      $content[index].style.display = 'none';
+      $nav[index].classList.remove(ACTIVE_CLASS);
+      index++;
+    }
+
+
+    $tab.querySelectorAll('[data-content="' + targetVal + '"]')[0].style.display = 'block';
+    $nav[targetVal].classList.add(ACTIVE_CLASS);
   };
 
-  $nav[0].addEventListener('click', (e) => handleClick(e));
+  let index = 0;
+  while(index < NAV_LENGTH){
+    $nav[index].addEventListener('click', (e) => handleClick(e));
+    index++;
+  }
+
 })();
