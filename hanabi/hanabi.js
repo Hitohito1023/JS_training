@@ -56,7 +56,7 @@ class Hanabi {
       if(this.vy > 0){
         this.kill = true;
 
-        for(let i = 0; i<1000; i++){
+        for(let i = 0; i<10; i++){
           let r = rand(0, 360);
           let s = rand(10, 400);
           let vx = Math.cos(r * Math.PI/180)*s;
@@ -79,10 +79,14 @@ class Hanabi {
     con.globalAlpha = 1.0;
     con.fillStyle = "#ffee88";
     con.fillRect(this.x>>8, this.y>>8, 2, 2);
+    zanzo.push(
+      new Zanzo(this.x, this.y)
+    )
   }
 }
 
 let hanabi = [];
+let zanzo = [];
 
 setInterval(mailLoop, 1000/60);
 
@@ -104,6 +108,10 @@ function update() {
     hanabi[i].update();
     if(hanabi[i].kill)hanabi.splice(i, 1);
   }
+  for(let i = zanzo.length-1; i>=0; i--){
+    zanzo[i].update();
+    if(zanzo[i].kill)zanzo.splice(i, 1);
+  }
 }
 
 
@@ -113,6 +121,9 @@ function draw() {
   con.fillRect(0, 0, SCREEN_W, SCREEN_H);
   for(let i = hanabi.length-1; i>=0; i--){
     hanabi[i].draw();
+  }
+  for(let i = zanzo.length-1; i>=0; i--){
+    zanzo[i].draw();
   }
 }
 
